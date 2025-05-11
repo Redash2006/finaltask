@@ -1,4 +1,3 @@
-
 function generatePassword() {
     const length = document.getElementById('length').value;
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}";
