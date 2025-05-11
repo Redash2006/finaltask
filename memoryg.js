@@ -36,3 +36,51 @@ function flipCard() {
 
     checkForMatch();
 }
+
+function checkForMatch() {
+    const isMatch = firstCard.dataset.letter === secondCard.dataset.letter;
+
+    if (isMatch) {
+        firstCard.removeEventListener('click', flipCard);
+        secondCard.removeEventListener('click', flipCard);
+        resetBoard();
+    } else {
+        setTimeout(() => {
+            firstCard.textContent = '';
+            secondCard.textContent = '';
+            firstCard.classList.remove('flipped');
+            secondCard.classList.remove('flipped');
+            resetBoard();
+        }, 1000);
+    }
+}
+
+function resetBoard() {
+    [firstCard, secondCard, lockBoard] = [null, null, false];
+}
+
+createBoard();
+
+let moves = 0;
+const moveCounter = document.getElementById('moveCounter');
+
+function flipCard() {
+    if (lockBoard || this === firstCard) return;
+
+    this.textContent = this.dataset.letter;
+    this.classList.add('flipped');
+
+    if (!firstCard) {
+        firstCard = this;
+        return;
+    }
+
+    secondCard = this;
+    lockBoard = true;
+
+    moves++;
+    moveCounter.textContent = moves;
+
+    checkForMatch();
+}
+
